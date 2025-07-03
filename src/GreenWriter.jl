@@ -6,6 +6,7 @@ using JuliaSyntax: @K_str, GreenNode, parsestmt, span, SyntaxHead, head, is_leaf
 
 export GreenText, print_tree
 
+"A richer version of `GreenNode` with the text contained in the leaves."
 struct GreenText
   content
   head::Union{Nothing, SyntaxHead}
