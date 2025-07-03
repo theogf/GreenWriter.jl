@@ -8,9 +8,9 @@ export GreenText, print_tree
 
 struct GreenText
   content
-  head::SyntaxHead
+  head::Union{Nothing, SyntaxHead}
   children::Vector{GreenText}
-  function GreenText(content, head::SyntaxHead, children::Vector{GreenText} = GreenText[])
+  function GreenText(content, head::Union{Nothing, SyntaxHead} = nothing, children::Vector{GreenText} = GreenText[])
     new(content, head, children)
   end
 end
@@ -18,6 +18,8 @@ end
 AbstractTrees.children(node::GreenText) = node.children
 AbstractTrees.nodevalue(node::GreenText) = isnothing(node.content) ? node.head.kind : node.content
 Base.show(io::IO, ::MIME"text/plain", node::GreenText) = print_tree(io, node)
+Base.getindex(node::GreenText, i::Integer) = node.children[i]
+Base.push!(node::GreenText, child::GreenText) = push!(node.children, child)
 JuliaSyntax.kind(node::GreenText) = node.head
 JuliaSyntax.is_leaf(node::GreenText) = isempty(node.children)
 
