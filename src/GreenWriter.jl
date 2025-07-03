@@ -31,6 +31,7 @@ function Base.parse(::Type{GreenText}, text::AbstractString)
   last(fetch_node_text(green_tree, text, 1)) 
 end
 
+"Map the `GreenNode` syntax tree into a [`GreenText`](@ref) syntax tree node." 
 function fetch_node_text(node::GreenNode, text::AbstractString, cursor::Int)
   if is_leaf(node)
     text_view = view(text, cursor:(cursor + span(node) - 1))
