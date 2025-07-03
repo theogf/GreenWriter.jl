@@ -2,5 +2,7 @@ using GreenWriter
 using Test
 
 @testset "GreenWriter.jl" begin
-    # Write your tests here.
+    text = """
+    foo(a) = 2 + 1
+    """
 end
