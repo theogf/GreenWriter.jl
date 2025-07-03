@@ -23,7 +23,7 @@ Base.push!(node::GreenText, child::GreenText) = push!(node.children, child)
 JuliaSyntax.kind(node::GreenText) = node.head
 JuliaSyntax.is_leaf(node::GreenText) = isempty(node.children)
 
-function GreenText(text::AbstractString)
+function Base.parse(::Type{GreenText}, text::AbstractString)
   green_tree = parseall(GreenNode, text)
   last(fetch_node_text(green_tree, text, 1)) 
 end
