@@ -1,7 +1,7 @@
 name = "GreenWriter"
 uuid = "e298cd2a-bb8b-47e7-b9a6-e75b86eaa6ce"
 authors = ["Théo Galy-Fajou <theo.galyfajou@gmail.com> and contributors"]
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 AbstractTrees = "1520ce14-60c1-5f80-bbc7-55ef81b5835c"
