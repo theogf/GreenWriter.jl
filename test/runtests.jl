@@ -143,4 +143,22 @@ using JuliaSyntax: is_leaf
         @test isempty(empty_node.children)
         @test is_leaf(empty_node)
     end
+
+    @testset "Unicode operators" begin
+        text = "x ∈ vecs"
+        node = parse(GreenText, text)
+        @test string(node) == text
+
+        # Check the content of every leaf
+        function collect_leaf_contents(node::GreenText)
+            if is_leaf(node)
+                return [node.content]
+            else
+                return reduce(vcat, collect_leaf_contents(child) for child in node.children)
+            end
+        end
+
+        leaf_contents = collect_leaf_contents(node)
+        @test leaf_contents == ["x", " ", "∈", " ", "vecs"]
+    end
 end
