@@ -2,9 +2,9 @@ module GreenWriter
 
 using AbstractTrees
 using JuliaSyntax
-using JuliaSyntax: @K_str, GreenNode, parsestmt, span, SyntaxHead, head, is_leaf
+using JuliaSyntax: @K_str, GreenNode, parsestmt, parseall, span, SyntaxHead, head, is_leaf
 
-export GreenText, print_tree, parsefile, kind, is_leaf
+export GreenText, print_tree, parsefile, kind, is_leaf, parseall
 
 "A richer version of `GreenNode` with the text contained in the leaves."
 struct GreenText
@@ -36,6 +36,10 @@ JuliaSyntax.is_leaf(node::GreenText) = isempty(node)
 
 function Base.parse(::Type{GreenText}, text::AbstractString)
     green_tree = parsestmt(GreenNode, text)
+    return last(fetch_node_text(green_tree, text, 1))
+end
+function JuliaSyntax.parseall(::Type{GreenText}, text::AbstractString)
+    green_tree = parseall(GreenNode, text)
     return last(fetch_node_text(green_tree, text, 1))
 end
 
