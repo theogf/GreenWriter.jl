@@ -163,8 +163,7 @@ using JuliaSyntax: is_leaf
     end
 
     @testset "Testing on a whole file" begin
-        txt = read(joinpath(pkgdir(GreenWriter), "src", "GreenWriter.jl"), String)
-        node = parse(GreenText, text)
+        node = parsefile(GreenText, joinpath(pkgdir(GreenWriter), "src", "GreenWriter.jl"))
         @test node isa GreenText
     end
 end
