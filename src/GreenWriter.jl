@@ -4,7 +4,7 @@ using AbstractTrees
 using JuliaSyntax
 using JuliaSyntax: @K_str, GreenNode, parsestmt, span, SyntaxHead, head, is_leaf
 
-export GreenText, print_tree, parsefile
+export GreenText, print_tree, parsefile, kind, is_leaf
 
 "A richer version of `GreenNode` with the text contained in the leaves."
 struct GreenText
@@ -25,12 +25,14 @@ function AbstractTrees.nodevalue(node::GreenText)
     return isnothing(node.content) ? node.head.kind : node.content
 end
 Base.show(io::IO, ::MIME"text/plain", node::GreenText) = print_tree(io, node)
+Base.length(node::GreenText) = length(node.children)
+Base.isempty(node::GreenText) = isempty(node.children)
 Base.getindex(node::GreenText, i::Integer) = node.children[i]
 Base.lastindex(node::GreenText) = length(node.children)
 Base.push!(node::GreenText, child::GreenText) = push!(node.children, child)
 Base.push!(node::GreenText, text::AbstractString) = push!(node, GreenText(text))
-JuliaSyntax.kind(node::GreenText) = node.head
-JuliaSyntax.is_leaf(node::GreenText) = isempty(node.children)
+JuliaSyntax.kind(node::GreenText) = kind(node.head)
+JuliaSyntax.is_leaf(node::GreenText) = isempty(node)
 
 function Base.parse(::Type{GreenText}, text::AbstractString)
     green_tree = parsestmt(GreenNode, text)
