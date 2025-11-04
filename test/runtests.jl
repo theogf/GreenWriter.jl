@@ -161,4 +161,10 @@ using JuliaSyntax: is_leaf
         leaf_contents = collect_leaf_contents(node)
         @test leaf_contents == ["x", " ", "∈", " ", "vecs"]
     end
+
+    @testset "Testing on a whole file" begin
+        txt = read(joinpath(pkgdir(GreenWriter), "src", "GreenWriter.jl"), String)
+        node = parse(GreenText, text)
+        @test node isa GreenText
+    end
 end
