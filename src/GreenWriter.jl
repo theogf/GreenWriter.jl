@@ -33,7 +33,7 @@ JuliaSyntax.kind(node::GreenText) = node.head
 JuliaSyntax.is_leaf(node::GreenText) = isempty(node.children)
 
 function Base.parse(::Type{GreenText}, text::AbstractString)
-    green_tree = parsestmt(GreenNode, text)
+    green_tree = parseall(GreenNode, text)
     return last(fetch_node_text(green_tree, text, 1))
 end
 
